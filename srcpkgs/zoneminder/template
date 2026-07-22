@@ -29,7 +29,7 @@ configure_args="
 # Add git so xbps-src can download the submodules
 
 hostmakedepends="git pkg-config cmake perl"
-makedepends="ffmpeg-devel libmysqlclient-devel libcurl-devel libjpeg-turbo-devel
+makedepends="ffmpeg-devel libmariadbclient-devel libcurl-devel libjpeg-turbo-devel
  pcre-devel libgcrypt-devel gnutls-devel vlc-devel libvncserver-devel libmariadbclient-devel"
 depends="perl-DBD-mysql perl-Date-Manip perl-LWP  perl-DBI perl-LWP-Protocol-https"
 short_desc="Complete video surveillance storage and monitoring solution"
@@ -93,6 +93,9 @@ post_install() {
         Net::MQTT::Simple \
         Sys::MemInfo \
         Sys::Mmap \
+        Device::SerialPort \
+        Number::Bytes::Human \
+        LWP::Protocol::https \
         DBI
 
 
