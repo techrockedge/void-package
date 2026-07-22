@@ -30,7 +30,7 @@
 >>> _type in the terminal_
 
 ```shell
-printf "repository=https://github.com/sofijacom/void-package/releases/latest/download/" | sudo tee /etc/xbps.d/sofijacom-void-repository.conf
+printf "repository=https://github.com/techrockedge/void-package/releases/latest/download/" | sudo tee /etc/xbps.d/techrockedge-void-repository.conf
 ```
 
 > [!IMPORTANT]
