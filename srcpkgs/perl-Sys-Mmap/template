@@ -13,4 +13,3 @@ license="Artistic-1.0-perl, GPL-1.0-or-later"
 homepage="https://metacpan.org/release/Sys-Mmap"
 distfiles="${CPAN_SITE}/Sys/Sys-Mmap-${version}.tar.gz"
 checksum=09295e25cc9b0599d9009d19b2be89fcecaecc62ce594f873d7f70d7c10900fa
-
