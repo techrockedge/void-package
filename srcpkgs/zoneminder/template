@@ -69,7 +69,23 @@ post_extract() {
 
 
 post_install() {
-    echo "Bootstrapping an independent cpanm instance inside the sandbox..."
+    cat > ${DESTDIR}/etc/zm/conf.d/01-system-paths.conf << 'EOF'
+ZM_PATH_UNAME=/usr/bin/uname
+ZM_PATH_IP=/usr/bin/ip
+ZM_PATH_IFCONFIG=/usr/bin/ifconfig
+ZM_PATH_SHUTDOWN=/usr/bin/shutdown
+ZM_PATH_FFMPEG=/usr/bin/ffmpeg
+ZM_PATH_DATA=/var/lib/zoneminder
+ZM_PATH_LOGS=/var/log/zoneminder
+ZM_PATH_CACHE=/var/cache/zoneminder
+ZM_PATH_RUN=/run/zoneminder
+ZM_PATH_TEMP=/var/lib/zoneminder/temp
+ZM_PATH_EVENTS=/var/lib/zoneminder/events
+ZM_PATH_IMAGES=/var/lib/zoneminder/images
+ZM_PATH_ZMS=/cgi-bin/nph-zms
+EOF
+    
+echo "Bootstrapping an independent cpanm instance inside the sandbox..."
     
     # Use Perl's native HTTP client instead of external curl
     perl -e '
