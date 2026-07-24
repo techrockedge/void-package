@@ -93,8 +93,8 @@ post)
     # Ensure zm user owns data directories
  #   chown -R zm:${WEBGROUP} /var/lib/zoneminder 2>/dev/null || true
 
-     chown -R ${WEBUSER}:${WEBGROUP /var/lib/zoneminder 2>/dev/null || true
-     chown -R ${WEBUSER}:${WEBGROUP /etc/zm 2>/dev/null || true
+     chown -R ${WEBUSER}:${WEBGROUP} /var/lib/zoneminder 2>/dev/null || true
+     chown -R ${WEBUSER}:${WEBGROUP} /etc/zm 2>/dev/null || true
 
     # 9. Enable zoneminder service via runit
     if [ ! -e /var/service/zoneminder ]; then
