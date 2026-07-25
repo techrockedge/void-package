@@ -113,7 +113,6 @@ echo "Bootstrapping an independent cpanm instance inside the sandbox..."
         Sys::Mmap \
         Device::SerialPort \
         Number::Bytes::Human \
-        LWP::Protocol::https \
 
     # Clean up the standalone script tool and artifacts
     rm -f cpanm
