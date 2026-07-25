@@ -1,6 +1,6 @@
 # Template file for 'mullvad-browser'
 pkgname=mullvad-browser
-version=15.0.18
+version=15.0.19
 revision=1
 archs="x86_64"
 nopie=yes
@@ -13,7 +13,7 @@ license="MPL-2.0"
 homepage="https://mullvad.net/browser"
 changelog="https://github.com/mullvad/mullvad-browser/releases"
 distfiles="https://github.com/mullvad/mullvad-browser/releases/download/${version}/mullvad-browser-linux-x86_64-${version}.tar.xz"
-checksum="86f2dfb751c38ffe4d8007d06f58a061d8493791ff8d9dbeeecfc928a2dfe06b"
+checksum="f556efec0f096ab62d4f42e5d5bbde426c227fbfc8562aba81e33132a785f92e"
 
 do_install() {
 	vmkdir opt/${pkgname}
