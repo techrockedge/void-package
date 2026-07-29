@@ -1,6 +1,6 @@
 # Template file for 'yandex-browser'
 pkgname=yandex-browser
-version=26.4.1.1110
+version=26.6.1.1003
 timestamp=1
 revision=1
 _channel=stable
@@ -23,7 +23,7 @@ _yandexUrl="${_baseUrl}/${_filename}"
 _licenseUrl="https://yandex.ru/legal/browser_agreement"
 
 distfiles="$_yandexUrl"
-checksum=27c8570c68a5e1b475304aaa4e8accefbc21e150b644a9cbc998ed32d952c8ba
+checksum=740006518ea877303b70a69e063dcc8531fe05b4d1582f270b783e22a83cf852
 
 do_install() {
 	vcopy etc /
