@@ -82,11 +82,11 @@ sudo xbps-install -S
   
 ```
 sudo mkdir -p /var/db/xbps/keys
-sudo wget -O /var/db/xbps/keys/00:ca:42:57:c9:c0:9a:ec:94:b4:7d:97:e5:a9:aa:1e.plist \
-  https://github.com/sofijacom/void-package/raw/refs/heads/main/repo-keys/x86_64/00:ca:42:57:c9:c0:9a:ec:94:b4:7d:97:e5:a9:aa:1e.plist
+sudo wget -O /var/db/xbps/keys/75:89:db:c3:95:d3:2c:c5:b0:31:b7:f0:2f:eb:3b:7f.plist \
+  https://github.com/techrockedge/void-package/raw/refs/heads/main/repo-keys/x86_64/75:89:db:c3:95:d3:2c:c5:b0:31:b7:f0:2f:eb:3b:7f.plist
 ```
-  
-> repo-key `00:ca:42:57:c9:c0:9a:ec:94:b4:7d:97:e5:a9:aa:1e.plist`
+
+> repo-key `75:89:db:c3:95:d3:2c:c5:b0:31:b7:f0:2f:eb:3b:7f.plist`
 
 ```txt
 
@@ -95,9 +95,9 @@ sudo wget -O /var/db/xbps/keys/00:ca:42:57:c9:c0:9a:ec:94:b4:7d:97:e5:a9:aa:1e.p
 <plist version="1.0">
 <dict>
 	<key>public-key</key>
-	<data>LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF6aFR1SkVjalBFZzZaUnNGbThtLwpaRnY0RWoyNUZVZzRZR3JQZlI3cWdaaGs5MExWd1hnTnVBQVl2TXFrSmpDd1dueEdYZVNzWUgyNFpSaFhiSHNvCm1DOGJFSDBOWkpmWGRYWFl3Rjg1dGl3b0RGRkpxOE0wN3daT0JsVmI4YXhkRm96UElpWXlRUEMxN1BwTjg0UksKS3NzZkJtQmt0dDUwbGptUWpmQW5lV21tZzF5VTRlSWZvR3AvamgrWW9TUGkyTzZTQi9ZVVJpZnNFYmlUK1RoMQpGdmpZTWhCb1VmQ2NGaGlIb3hDWXJOREhNOURSM21lUVI5ZkFuTEhKNEdXclhoMy84TjFhTngwcnZXckdSNDlJCkJrenNJdjErL2hHNzdyVG54Z3VPNGx0QVZ0QnljdVhRa2ZoWlpzMCtNSXphMzZpaVJja1lVRVVzYVFtQkJnUXMKaHdJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==</data>
+	<data>LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQ0lqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FnOEFNSUlDQ2dLQ0FnRUF0Y01NYTBWTTdENzJ1bnEvb3VQbQpkeDcwUEFOa1hleHBjS21VU0ExemE2SkxMazdsQUs0RVQ0WGxvT2ZNNi9ZSEx0V1FLRmVwZ2RDdCtNeTVNK3RYCnNiSzNLQWo5TUt2a3dwQW5ENjJHWWFGMWN6NERqNWNIbFNSNHBSU1lzYTlXL2kvdGFpbzBKYTY2M0NXNlB3N2YKaGtUK2pTbHJZWEVUT0k2Skk1RjlKaFBqa09pcnNJaDR3cndMQmFhdXlKamFQMUkyd1Z6bmlsWi9Sa3NkNjNyYQpOcjFZWFdyRXNrbUNZVXRTMDZ4TFBTTmI2d0FNUmVyQndPWm4xeUFSZGhNM1BQVWxWQUtURlg2RGJPZjNXTktSCnVwNXoreERpUkF0WW56U3pXVUY2MnRaOUFLdUZsQjdKZVB4MWcvYXo5Q3pZdm4yYlBKWmtSKzBjS0lmU0toZTEKYm5lUUFZeEZTV0NXKzkxczBFMysyT2lNZE8zTWtxa2Rsd0JwYS9IVXVJMytPaFRLd3Z0emdrNmlGektIenBQUQpwbUFQS1Y4VmozVmlRUFhwVHgrVzN4L0cwUHZnUkVEY3BiZ3VkdjJFakZRZGQ0N1JCYmhpKzQzbWFkMkpxYUJiCnBTWWdMN1JoODAzeFhBeW1QQ0dGTVpMU0tyUytBRHdNcTllOG1rQ2NMcUpTdURoOExEcnJ6RjVRdkoyRjhOTysKeXZkUU4wS2lMaWh1ZkdJUmtPY1k0eDJOQkk1cHBsQllGV2hPb3JLZFFyeEZ5K1FXTHRiU2l3L1QzTUI5ZDZRaQpubHQ5dlFjTWR0VHpyK3dRL0ZycC82K2Y3OHdZV2VMZS9JWkhpdWlwVEluQW44cm0vakhjVUFFN09KNS9IenFUCldCNlpCOFllT3J1RGY2a0R6dVBCT2hjQ0F3RUFBUT09Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo=</data>
 	<key>public-key-size</key>
-	<integer>2048</integer>
+	<integer>4096</integer>
 	<key>signature-by</key>
 	<string>void-package-github-actions</string>
 </dict>
