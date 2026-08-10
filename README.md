@@ -68,6 +68,7 @@ sudo xbps-install -S
 | _Waterfox-browser_                    | https://www.waterfox.net/                         | ✔️ |
 | _Yandex-browser ( stable )_           | https://repo.yandex.ru/                           | ✔️ |
 | _Zen-browser ( stable )_              | https://www.zen-browser.app/                      | ✔️ |
+| _Zoneminder ( stable )_               | https://zoneminder.com/                           | ✔️ |
 
 ### TODO
 
