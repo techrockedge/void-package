@@ -20,7 +20,7 @@
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/techrockedge/void-package?style=badge&logo=github&label=Release&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/releases/)
 [![GitHub issues](https://img.shields.io/github/issues-raw/techrockedge/void-package?style=badge&label=Open%20Issues&logo=github&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/techrockedge/void-package?style=badge&label=Closed%20Issues&logo=github&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/issues)
-[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/techrockedge/void-package/main?style=badge&label=Last%20Commit&logo=github&colorA=363a4f&colorB=purple)](#)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/techrockedge/void-package/main?style=badge&label=Last%20Commit&logo=github&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/commits/main/)
 
 </div>
 <br>
