@@ -113,6 +113,6 @@ sudo wget -O /var/db/xbps/keys/75:89:db:c3:95:d3:2c:c5:b0:31:b7:f0:2f:eb:3b:7f.p
 </p>
 
 <p align="center">
-	<a href="https://github.com/sofijacom/void-package/blob/main/LICENSE"><img src="https://img.shields.io/static/v1.svg?style=for-the-badge&logo=gitbook&label=License&message=MIT&logoColor=EDE9FE&colorA=363a4f&colorB=b7bdf8"/></a>
+	<a href="https://github.com/techrockedge/void-package/blob/main/LICENSE"><img src="https://img.shields.io/static/v1.svg?style=for-the-badge&logo=gitbook&label=License&message=MIT&logoColor=EDE9FE&colorA=363a4f&colorB=b7bdf8"/></a>
 </p>
 
