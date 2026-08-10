@@ -18,8 +18,8 @@
 [![GitHub](https://img.shields.io/github/license/techrockedge/void-package?style=badge&label=License&colorA=363a4f&colorB=purple&logo=gitbook)](https://github.com/techrockedge/void-package/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/techrockedge/void-package?style=badge&colorA=363a4f&colorB=purple&logo=github&label=Contributors)](https://github.com/techrockedge/void-package/graphs/contributors?from=)
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/techrockedge/void-package?style=badge&logo=github&label=Release&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/releases/)
-[![GitHub issues](https://img.shields.io/github/issues-raw/techrockedge/void-package?style=badge&label=Open%20Issues&logo=github&colorA=363a4f&colorB=purple)](#)
-[![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/techrockedge/void-package?style=badge&label=Closed%20Issues&logo=github&colorA=363a4f&colorB=purple)](#)
+[![GitHub issues](https://img.shields.io/github/issues-raw/techrockedge/void-package?style=badge&label=Open%20Issues&logo=github&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/techrockedge/void-package?style=badge&label=Closed%20Issues&logo=github&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/issues)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/techrockedge/void-package/main?style=badge&label=Last%20Commit&logo=github&colorA=363a4f&colorB=purple)](#)
 
 </div>
