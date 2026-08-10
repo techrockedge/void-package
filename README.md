@@ -15,7 +15,7 @@
 [![Build](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update-template.yml?style=badge&label=UPDATE-TEMPLATE&logo=githubactions&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
 [![Updates](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update.yml?style=badge&label=AUTO-UPDATE&logo=github&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
 
-[![GitHub](https://img.shields.io/github/license/techrockedge/void-package?style=badge&label=License&colorA=363a4f&colorB=purple&logo=gitbook)](#)
+[![GitHub](https://img.shields.io/github/license/techrockedge/void-package?style=badge&label=License&colorA=363a4f&colorB=purple&logo=gitbook)](https://github.com/techrockedge/void-package/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/techrockedge/void-package?style=badge&colorA=363a4f&colorB=purple&logo=github&label=Contributors)](#)
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/techrockedge/void-package?style=badge&logo=github&label=Release&colorA=363a4f&colorB=purple)](https://github.com/techrockedge/void-package/releases/)
 [![GitHub issues](https://img.shields.io/github/issues-raw/techrockedge/void-package?style=badge&label=Open%20Issues&logo=github&colorA=363a4f&colorB=purple)](#)
