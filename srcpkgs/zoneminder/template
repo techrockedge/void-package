@@ -1,8 +1,8 @@
 # Template file for 'zoneminder'
 
 pkgname=zoneminder
-version=1.38.3
-revision=2
+version=1.38.4
+revision=1
 system_groups="www-data" # Ensures the target group exists on the user's host OS
 build_style=cmake
 configure_args="
@@ -76,7 +76,7 @@ maintainer="Erik Schoepplenberg <erik@puppylinux.com>"
 license="GPL-2.0-or-later"
 homepage="https://zoneminder.com/"
 distfiles="https://github.com/ZoneMinder/zoneminder/archive/refs/tags/"${version}".tar.gz"
-checksum=59ed8bcaa2376593873b613149ea299b9055443e6d925689b2bf69c56f2deb79
+checksum=d0e0cab5008a75cb8547533c2e1f673a9d8f9e19e32aeb1ae8e15e0b7c09a0
 
 # Allow xbps-src to connect to GitHub during the build phase
 allow_net=yes
