@@ -38,6 +38,16 @@ jobs:
     - run: bash ./srcpkgs/github-desktop/update.sh
     - run: bash ./srcpkgs/ly/update.sh
     - run: bash ./srcpkgs/zoneminder/update.sh
+    - run: bash ./srcpkgs/perl-Class-Mix/update.sh
+    - run: bash ./srcpkgs/perl-Crypt-Eksblowfish/update.sh
+    - run: bash ./srcpkgs/perl-Device-SerialPort/update.sh
+    - run: bash ./srcpkgs/perl-Net-MQTT-Simple/update.sh
+    - run: bash ./srcpkgs/perl-Net-WebSocket-Server/update.sh
+    - run: bash ./srcpkgs/perl-Number-Bytes-Human/update.sh
+    - run: bash ./srcpkgs/perl-Sys-MemInfo/update.sh
+    - run: bash ./srcpkgs/perl-Sys-Mmap/update.sh
+    - run: bash ./srcpkgs/perl-Protocol-WebSocket/update.sh
+
     
     # - run: bash ./srcpkgs/github-desktop-plus/update.sh
     - name: Check for updates
