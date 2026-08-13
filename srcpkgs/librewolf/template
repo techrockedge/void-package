@@ -42,3 +42,5 @@ do_install() {
 	ln -Ts /usr/share/hyphen "${DESTDIR}/usr/lib/${pkgname}/hyphenation"
 	ln -sf /usr/lib/libnssckbi.so "${DESTDIR}/usr/lib/${pkgname}/libnssckbi.so"
 }
+
+# force compile test line
