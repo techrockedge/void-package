@@ -61,6 +61,15 @@ sudo xbps-install -S
 | _Mullvad-browser_                     | https://github.com/mullvad/mullvad-browser        | ✔️ |
 | _Mullvad VPN_                         | https://github.com/mullvad/mullvadvpn-app/        | ✔️ |
 | _Palemoon ( browser )_                | https://www.palemoon.org/                         | ✔️ |
+| _perl-Class-Mix_                      | https://metacpan.org/pod/Class::Mix               | ✔️ |
+| _perl-Crypt-Eksblowfish_              | https://metacpan.org/pod/Crypt::Eksblowfish       | ✔️ |
+| _perl-Device-SerialPort_              | https://metacpan.org/pod/Device::SerialPort       | ✔️ |
+| _perl-Net-MQTT_                       | https://metacpan.org/pod/Net::MQTT                | ✔️ |
+| _perl-Net-WebSocket-Server_           | https://metacpan.org/pod/Net::WebSocket::Server   | ✔️ |
+| _perl-Number-Bytes-Human_             | https://metacpan.org/pod/Number::Bytes::Human     | ✔️ |
+| _perl-Protocol-WebSocket_             | https://metacpan.org/pod/perl::Protocol::WebSocket| ✔️ |
+| _perl-Sys-MemInfo_                    | https://metacpan.org/pod/perl::Sys::MemInfo       | ✔️ |
+| _perl-Sys-Mmap_                       | https://metacpan.org/pod/perl::Sys::Mmap          | ✔️ |
 | _Pup-volume-monitor_                  | https://github.com/01micko/pup-volume-monitor     | 🔐 |
 | _Osmo + dependency (libgringotts)_    | https://sourceforge.net/projects/osmo-pim/files/  | 🔐 |
 | _SeaMonkey ( Web-browser )_           | https://www.seamonkey-project.org/                | ✔️ |
