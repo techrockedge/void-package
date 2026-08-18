@@ -28,6 +28,7 @@ jobs:
     - run: bash ./srcpkgs/yandex-browser/update.sh
     - run: bash ./srcpkgs/microsoft-edge/update.sh
     - run: bash ./srcpkgs/mullvad-browser/update.sh
+    - run: bash ./srcpkgs/mullvadvpn/update.sh
     - run: bash ./srcpkgs/helium-browser/update.sh
     - run: bash ./srcpkgs/waterfox/update.sh
     - run: bash ./srcpkgs/librewolf/update.sh
