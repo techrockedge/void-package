@@ -59,7 +59,8 @@ sudo xbps-install -S
 | _ly_                                  | https://codeberg.org/fairyglade/ly                | ✔️ |
 | _Microsoft-edge ( Web browser )_      | https://github.com/NDViet/microsoft-edge-stable   | ✔️ |
 | _Mullvad-browser_                     | https://github.com/mullvad/mullvad-browser        | ✔️ |
-| _Mullvad VPN_                         | https://github.com/mullvad/mullvadvpn-app/        | ✔️ |
+| _Mullvad VPN_                         | https://github.com/mullvad/mullvadvpn-app         | ✔️ |
+| _nixie-clock_                         | https://github.com/sofijacom/nixie-clock          | ✔️ |
 | _Palemoon ( browser )_                | https://www.palemoon.org/                         | ✔️ |
 | _perl-Class-Mix_                      | https://metacpan.org/pod/Class::Mix               | ✔️ |
 | _perl-Crypt-Eksblowfish_              | https://metacpan.org/pod/Crypt::Eksblowfish       | ✔️ |
