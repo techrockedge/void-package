@@ -11,7 +11,7 @@ license="MIT"
 homepage="https://github.com"
 distfiles="https://github.com/sofijacom/nixie-clock/archive/refs/tags/v${version}.tar.gz"
 wrksrc="nixie-clock-v${version}"
-checksum=ed3af01d3255bc7bbe197a8b2c2f8ab582b051d585975f8f38f88705e881953e
+checksum=41ce7dc5adebe16e30e6e7244483c0f8a45d472ce16e3fb391ea3079eb4dd14d
 
 do_build() {
 	# Compile Vala source into a standard C source file
