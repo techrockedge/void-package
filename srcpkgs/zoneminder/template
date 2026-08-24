@@ -91,84 +91,36 @@ post_extract() {
 }
 
 post_install() {
-    local sv_dir="/etc/sv/zoneminder"
-    
-    # 1. Explicit service structure creation
-    mkdir -p "${sv_dir}"
-    chmod 0755 "${sv_dir}"
-    
-    mkdir -p "${sv_dir}/log"
-    chmod 0755 "${sv_dir}/log"
 
-    ########################################
-    # Run file
-    ########################################
-    if ! cat << 'EOF' > "${sv_dir}/run"; then
-        echo "Error: Failed to write ${sv_dir}/run" >&2
-        return 1
-    fi
+# Runit service block
+	mkdir -p "${PKGDESTDIR}/etc/sv/zoneminder"
+	cat << 'EOF' > "${PKGDESTDIR}/etc/sv/zoneminder/run"
 #!/bin/sh
-set -e
 
-SV_DIR="$(dirname "$(readlink -f "$0")")"
-
-# Cleanup after a crash
-if /usr/bin/zmdc.pl status >/dev/null 2>&1; then
-    echo "[zm] Dirty shutdown detected, stopping..."
-    /usr/bin/zmpkg.pl stop || true
-    sleep 2
-fi
-
-echo "[zm] Starting at $(date)"
 /usr/bin/zmpkg.pl start
-sleep 1
-
-_term() { exit 0; }
-trap _term TERM INT
-
-# Health check loop
-while /usr/bin/zmdc.pl status >/dev/null 2>&1; do
-    sleep 3
+# zmpkg.pl start returns immediately after forking zmdc.pl — this script must
+# stay in the foreground itself, or runit will treat the exit as a crash and
+# restart run in a tight loop. So we poll zmdc's status and only exit if it
+# actually goes down.
+while chpst -u www-data:www-data /usr/bin/zmdc.pl status >/dev/null 2>&1; do
+    sleep 15
 done
 
-echo "[zm] CRITICAL: zmdc stopped responding." >&2
+echo "zmdc is no longer running — exiting so runit can restart the service"
 exit 1
 EOF
-
-    ########################################
-    # Finish file
-    ########################################
-    if ! cat << 'EOF' > "${sv_dir}/finish"; then
-        echo "Error: Failed to write ${sv_dir}/finish" >&2
-        return 1
-    fi
+	
+cat << 'EOF' > "${PKGDESTDIR}/etc/sv/zoneminder/finish"
 #!/bin/sh
-timeout 30s /usr/bin/zmpkg.pl stop
+chpst -u www-data:www-data /usr/bin/zmpkg.pl stop
 exit 0
 EOF
 
-    ########################################
-    # Log handler (log/run)
-    ########################################
-    if ! cat << 'EOF' > "${sv_dir}/log/run"; then
-        echo "Error: Failed to write ${sv_dir}/log/run" >&2
-        return 1
-    fi
-#!/bin/sh
-exec svlogd -tt /var/log/zoneminder/
-EOF
+	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/run"
+	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/finish"
 
-    ########################################
-    # Permissions
-    ########################################
-    chmod 0755 "${sv_dir}/run"
-    chmod 0755 "${sv_dir}/finish"
-    chmod 0755 "${sv_dir}/log/run"
-    
-    chown root:root "${sv_dir}/run" "${sv_dir}/finish" "${sv_dir}/log/run"
-
-    echo "ZoneMinder runit service files installed successfully to ${sv_dir}/"
 }
+
 
 
 	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/run"
