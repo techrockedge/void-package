@@ -120,9 +120,3 @@ EOF
 	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/finish"
 
 }
-
-
-
-	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/run"
-	chmod 0755 "${PKGDESTDIR}/etc/sv/zoneminder/finish"
-}
