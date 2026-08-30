@@ -1,33 +1,3 @@
-name: Cleanup Void Package Branch Runs
-
-on:
-  schedule:
-    - cron: '0 0 * * 0' # Runs every Sunday at midnight
-  workflow_dispatch:  # Allows manual triggering from the Actions tab
-    inputs:
-      min_age_days:
-        description: 'Minimum age (in days) of runs to delete'
-        required: false
-        default: '7'
-      dry_run:
-        description: 'Dry Run? (Log outputs without deleting anything)'
-        type: boolean
-        required: true
-        default: true
-
-jobs:
-  cleanup:
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-
-    steps:
-      - name: Delete old workflow runs on void-package branch
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BRANCH: 'void-package'
-          MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
-          DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: |
           # Ensure fallback values exist
           if [ -z "$MIN_AGE_DAYS" ]; then
@@ -49,15 +19,12 @@ jobs:
           echo "Target Repository: $GITHUB_REPOSITORY"
           echo "Target Branch: $BRANCH"
 
-          echo "Fetching completed runs..."
+          echo "Fetching and filtering completed runs..."
 
-          # Debug: Test raw connection to see if GitHub CLI can see the branch at all
-          RAW_COUNT=$(gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 10 --json databaseId --jq '. | length')
-          echo "Debug count found for branch '$BRANCH': $RAW_COUNT"
-
-          # Native fetch: Swapped context parsing strictly to $GITHUB_REPOSITORY
-          gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 250 --json databaseId,createdAt,status \
-            --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv' | while IFS=$'\t' read -r run_id run_epoch; do
+          # FIX: Fetch broad metadata and filter by headBranch directly in JQ.
+          # This circumvents API filtering limitations on non-default branches.
+          gh run list --repo "$GITHUB_REPOSITORY" --all --limit 500 --json databaseId,createdAt,status,headBranch \
+            --jq ".[] | select(.status != \"in_progress\" and .status != \"queued\" and .headBranch == \"$BRANCH\") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv" | while IFS=$'\t' read -r run_id run_epoch; do
             
             if [ -z "$run_id" ] || [ -z "$run_epoch" ]; then
               continue
