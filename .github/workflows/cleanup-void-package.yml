@@ -28,7 +28,7 @@ jobs:
           BRANCH: 'void-package'
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
-    run: |
+        run: |
           # Ensure fallback values exist
           if [ -z "$MIN_AGE_DAYS" ]; then
             MIN_AGE_DAYS=7
@@ -49,12 +49,15 @@ jobs:
           echo "Target Repository: $GITHUB_REPOSITORY"
           echo "Target Branch: $BRANCH"
 
-          echo "Fetching and filtering completed runs..."
+          echo "Fetching completed runs..."
 
-          # FIX: Fetch broad metadata and filter by headBranch directly in JQ.
-          # This circumvents API filtering limitations on non-default branches.
-          gh run list --repo "$GITHUB_REPOSITORY" --all --limit 500 --json databaseId,createdAt,status,headBranch \
-            --jq ".[] | select(.status != \"in_progress\" and .status != \"queued\" and .headBranch == \"$BRANCH\") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv" | while IFS=$'\t' read -r run_id run_epoch; do
+          # Debug: Test raw connection to see if GitHub CLI can see the branch at all
+          RAW_COUNT=$(gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 10 --json databaseId --jq '. | length')
+          echo "Debug count found for branch '$BRANCH': $RAW_COUNT"
+
+          # Native fetch: Swapped context parsing strictly to $GITHUB_REPOSITORY
+          gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 250 --json databaseId,createdAt,status \
+            --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv' | while IFS=$'\t' read -r run_id run_epoch; do
             
             if [ -z "$run_id" ] || [ -z "$run_epoch" ]; then
               continue
