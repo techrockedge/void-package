@@ -9,6 +9,11 @@ on:
         description: 'Minimum age (in days) of runs to delete'
         required: false
         default: '7'
+      dry_run:
+        description: 'Dry Run? (Log outputs without deleting anything)'
+        type: boolean
+        required: true
+        default: true
 
 jobs:
   cleanup:
@@ -24,10 +29,21 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           BRANCH: 'void-package'
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
+          # Handle both manual UI boolean toggle and schedule fallback (false for cron)
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: |
-          # Ensure a fallback value exists
+          # Ensure fallback values exist
           if [ -z "$MIN_AGE_DAYS" ]; then
             MIN_AGE_DAYS=7
+          fi
+          
+          # Default to false for scheduled runs, respect choice for manual triggers
+          if [ -z "$DRY_RUN" ]; then
+            DRY_RUN=false
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "⚠️ DRY RUN MODE ENABLED. No workflow runs will be deleted."
           fi
 
           echo "Fetching completed runs for branch: $BRANCH older than $MIN_AGE_DAYS day(s)"
@@ -35,7 +51,7 @@ jobs:
           # Compute cutoff timestamp (epoch seconds)
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
 
-          # SAFE FILTER: Fetch databaseId, createdAt, and status. Ignore queued or in-progress runs.
+          # Fetch databaseId, createdAt, and status. Ignore active runs.
           gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt,status \
             --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
             
@@ -54,9 +70,13 @@ jobs:
             fi
 
             if [ "$RUN_EPOCH" -lt "$CUTOFF_EPOCH" ]; then
-              echo "Deleting run ID: $run_id (created: $created_at)"
-              gh run delete "$run_id" --repo "$OWNER/$REPO" \
-                || echo "Failed to delete run $run_id"
+              if [ "$DRY_RUN" = "true" ]; then
+                echo "[DRY RUN] Would delete run ID: $run_id (created: $created_at)"
+              else
+                echo "Deleting run ID: $run_id (created: $created_at)"
+                gh run delete "$run_id" --repo "$OWNER/$REPO" \
+                  || echo "Failed to delete run $run_id"
+              fi
             else
               echo "Skipping run ID: $run_id (created: $created_at, younger than $MIN_AGE_DAYS days)"
             fi
