@@ -25,7 +25,7 @@ jobs:
       - name: Delete old workflow runs on void-package branch
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: 'void-package'
+          BRANCH: 'void-package main'
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: |
