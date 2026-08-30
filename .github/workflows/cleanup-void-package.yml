@@ -3,7 +3,7 @@ name: Cleanup Void Package Branch Runs
 on:
   schedule:
     - cron: '0 0 * * 0' # Runs every Sunday at midnight
-  workflow_dispatch:    # Allows manual triggering from the Actions tab
+  workflow_dispatch:  # Allows manual triggering from the Actions tab
     inputs:
       min_age_days:
         description: 'Minimum age (in days) of runs to delete'
@@ -30,27 +30,32 @@ jobs:
             MIN_AGE_DAYS=7
           fi
 
-          echo "Fetching runs for branch: $BRANCH older than $MIN_AGE_DAYS day(s)"
+          echo "Fetching completed runs for branch: $BRANCH older than $MIN_AGE_DAYS day(s)"
 
           # Compute cutoff timestamp (epoch seconds)
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
 
-          # Fetch up to 250 runs, parse JSON to TSV, filter, and delete
-          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt --jq '.[] | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
+          # SAFE FILTER: Fetch databaseId, createdAt, and status. Ignore queued or in-progress runs.
+          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt,status \
+            --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
+            
             if [ -z "$run_id" ]; then
               continue
             fi
 
+            # Format ISO-8601 text so the Linux 'date' command can process it natively
+            FORMATTED_DATE=$(echo "$created_at" | sed -e 's/T/ /g' -e 's/Z//g')
+
             # Safe time conversion
-            RUN_EPOCH=$(date -d "$created_at" +%s 2>/dev/null)
+            RUN_EPOCH=$(date -d "$FORMATTED_DATE" +%s 2>/dev/null)
             if [ -z "$RUN_EPOCH" ]; then
-              echo "Warning: could not parse date for run $run_id, skipping"
+              echo "Warning: could not parse date '$created_at' for run $run_id, skipping"
               continue
             fi
 
             if [ "$RUN_EPOCH" -lt "$CUTOFF_EPOCH" ]; then
               echo "Deleting run ID: $run_id (created: $created_at)"
-              gh api repos/"$OWNER"/"$REPO"/actions/runs/"$run_id" -X DELETE --silent \
+              gh run delete "$run_id" --repo "$OWNER/$REPO" \
                 || echo "Failed to delete run $run_id"
             else
               echo "Skipping run ID: $run_id (created: $created_at, younger than $MIN_AGE_DAYS days)"
