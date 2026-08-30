@@ -25,8 +25,6 @@ jobs:
       - name: Delete old workflow runs on void-package branch
         env:
           GH_TOKEN: ${{ github.token }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
           BRANCH: 'void-package'
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
@@ -47,14 +45,19 @@ jobs:
 
           # Compute cutoff timestamp using native Unix epoch seconds
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
-          echo "Cutoff timestamp (seconds since epoch): $CUTOFF_EPOCH"
+          echo "Target Cutoff Timestamp: $CUTOFF_EPOCH"
+          echo "Target Repository: $GITHUB_REPOSITORY"
+          echo "Target Branch: $BRANCH"
 
-          echo "Fetching completed runs for branch '$BRANCH'..."
+          echo "Fetching completed runs..."
 
-          # FIX: Added --all flag so gh scans non-default branches. 
-          # FIX: Moved the date parsing logic directly inside JQ using fromdateiso8601 for perfect translation.
-          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --all --limit 250 --json databaseId,createdAt,status \
-            --jq ".[] | select(.status != \"in_progress\" and .status != \"queued\") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv" | while IFS=$'\t' read -r run_id run_epoch; do
+          # Debug: Test raw connection to see if GitHub CLI can see the branch at all
+          RAW_COUNT=$(gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 10 --json databaseId --jq '. | length')
+          echo "Debug count found for branch '$BRANCH': $RAW_COUNT"
+
+          # Native fetch: Swapped context parsing strictly to $GITHUB_REPOSITORY
+          gh run list --repo "$GITHUB_REPOSITORY" --branch "$BRANCH" --all --limit 250 --json databaseId,createdAt,status \
+            --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv' | while IFS=$'\t' read -r run_id run_epoch; do
             
             if [ -z "$run_id" ] || [ -z "$run_epoch" ]; then
               continue
@@ -65,7 +68,7 @@ jobs:
                 echo "[DRY RUN] Would delete run ID: $run_id (Timestamp: $run_epoch)"
               else
                 echo "Deleting run ID: $run_id..."
-                gh run delete "$run_id" --repo "$OWNER/$REPO" \
+                gh run delete "$run_id" --repo "$GITHUB_REPOSITORY" \
                   || echo "Failed to delete run $run_id"
               fi
             else
