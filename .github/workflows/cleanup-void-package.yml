@@ -40,12 +40,7 @@ jobs:
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
 
           # Fetch up to 250 runs with id + createdAt, filter by age, then delete
-          gh run list \
-            --repo "$OWNER/$REPO" \
-            --branch "$BRANCH" \
-            --limit 250 \
-            --json databaseId,createdAt \
-            --jq '.[] | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
+          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt --jq '.[] | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
             if [ -z "$run_id" ]; then
               continue
             fi
