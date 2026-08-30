@@ -2,8 +2,8 @@ name: Cleanup Void Package Branch Runs
 
 on:
   schedule:
-  - cron: '0 0 * * 0' # Runs every Sunday at midnight
-  workflow_dispatch:  # Allows manual triggering from the Actions tab
+    - cron: '0 0 * * 0' # Runs every Sunday at midnight
+  workflow_dispatch:    # Allows manual triggering from the Actions tab
     inputs:
       min_age_days:
         description: 'Minimum age (in days) of runs to delete'
@@ -17,19 +17,15 @@ jobs:
       actions: write
 
     steps:
-      - name: Install GitHub CLI
-        uses: actions/setup-gh@v2
-
       - name: Delete old workflow runs on void-package branch
         env:
           GH_TOKEN: ${{ github.token }}
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
           BRANCH: 'void-package'
-          # Safe default value
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
         run: |
-          # If the input is empty, set the default to 7
+          # Ensure a fallback value exists
           if [ -z "$MIN_AGE_DAYS" ]; then
             MIN_AGE_DAYS=7
           fi
@@ -39,7 +35,7 @@ jobs:
           # Compute cutoff timestamp (epoch seconds)
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
 
-          # Fetch up to 250 runs with id + createdAt, filter by age, then delete
+          # Fetch up to 250 runs, parse JSON to TSV, filter, and delete
           gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt --jq '.[] | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
             if [ -z "$run_id" ]; then
               continue
