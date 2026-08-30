@@ -1,4 +1,34 @@
-        run: |
+name: Cleanup Void Package Branch Runs
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Runs every Sunday at midnight
+  workflow_dispatch:  # Allows manual triggering from the Actions tab
+    inputs:
+      min_age_days:
+        description: 'Minimum age (in days) of runs to delete'
+        required: false
+        default: '7'
+      dry_run:
+        description: 'Dry Run? (Log outputs without deleting anything)'
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+      - name: Delete old workflow runs on void-package branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: 'void-package'
+          MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+    run: |
           # Ensure fallback values exist
           if [ -z "$MIN_AGE_DAYS" ]; then
             MIN_AGE_DAYS=7
