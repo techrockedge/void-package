@@ -29,7 +29,6 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           BRANCH: 'void-package'
           MIN_AGE_DAYS: ${{ github.event.inputs.min_age_days || '7' }}
-          # Handle both manual UI boolean toggle and schedule fallback (false for cron)
           DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: |
           # Ensure fallback values exist
@@ -46,38 +45,30 @@ jobs:
             echo "⚠️ DRY RUN MODE ENABLED. No workflow runs will be deleted."
           fi
 
-          echo "Fetching completed runs for branch: $BRANCH older than $MIN_AGE_DAYS day(s)"
-
-          # Compute cutoff timestamp (epoch seconds)
+          # Compute cutoff timestamp using native Unix epoch seconds
           CUTOFF_EPOCH=$(date -d "-${MIN_AGE_DAYS} days" +%s)
+          echo "Cutoff timestamp (seconds since epoch): $CUTOFF_EPOCH"
 
-          # Fetch databaseId, createdAt, and status. Ignore active runs.
-          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --limit 250 --json databaseId,createdAt,status \
-            --jq '.[] | select(.status != "in_progress" and .status != "queued") | [.databaseId, .createdAt] | @tsv' | while IFS=$'\t' read -r run_id created_at; do
+          echo "Fetching completed runs for branch '$BRANCH'..."
+
+          # FIX: Added --all flag so gh scans non-default branches. 
+          # FIX: Moved the date parsing logic directly inside JQ using fromdateiso8601 for perfect translation.
+          gh run list --repo "$OWNER/$REPO" --branch "$BRANCH" --all --limit 250 --json databaseId,createdAt,status \
+            --jq ".[] | select(.status != \"in_progress\" and .status != \"queued\") | [.databaseId, (.createdAt | fromdateiso8601)] | @tsv" | while IFS=$'\t' read -r run_id run_epoch; do
             
-            if [ -z "$run_id" ]; then
+            if [ -z "$run_id" ] || [ -z "$run_epoch" ]; then
               continue
             fi
 
-            # Format ISO-8601 text so the Linux 'date' command can process it natively
-            FORMATTED_DATE=$(echo "$created_at" | sed -e 's/T/ /g' -e 's/Z//g')
-
-            # Safe time conversion
-            RUN_EPOCH=$(date -d "$FORMATTED_DATE" +%s 2>/dev/null)
-            if [ -z "$RUN_EPOCH" ]; then
-              echo "Warning: could not parse date '$created_at' for run $run_id, skipping"
-              continue
-            fi
-
-            if [ "$RUN_EPOCH" -lt "$CUTOFF_EPOCH" ]; then
+            if [ "$run_epoch" -lt "$CUTOFF_EPOCH" ]; then
               if [ "$DRY_RUN" = "true" ]; then
-                echo "[DRY RUN] Would delete run ID: $run_id (created: $created_at)"
+                echo "[DRY RUN] Would delete run ID: $run_id (Timestamp: $run_epoch)"
               else
-                echo "Deleting run ID: $run_id (created: $created_at)"
+                echo "Deleting run ID: $run_id..."
                 gh run delete "$run_id" --repo "$OWNER/$REPO" \
                   || echo "Failed to delete run $run_id"
               fi
             else
-              echo "Skipping run ID: $run_id (created: $created_at, younger than $MIN_AGE_DAYS days)"
+              echo "Skipping run ID: $run_id (Run timestamp $run_epoch is younger than cutoff)"
             fi
           done
