@@ -4,8 +4,7 @@ run-name: "Automated update of ${{ github.ref_name }} by @${{ github.actor }}"
 on:
   schedule:
     - cron: '0 0 * * 1,4'  # Every Monday and Thursday at 00:00 UTC
-  
-workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   find-autoupdates:
