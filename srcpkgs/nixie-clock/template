@@ -1,16 +1,17 @@
 # Template file for 'nixie-clock'
+
 pkgname=nixie-clock
 version=1.1.2
 revision=1
+wrksrc="nixie-clock-v${version}"
 build_style=gnu-makefile
-hostmakedepends="vala pkg-config"
-makedepends="gtk+3-devel cairo-devel"
-short_desc="Lightweight desktop clock designed to look like a Nixie tube display"
+hostmakedepends="pkg-config vala"
+makedepends="gtk+3-devel cairo-devel pango-devel gtk-layer-shell-devel gdk-pixbuf-devel"
+short_desc="Nixie Clock Desktop Gadget"
 maintainer="Sofiya <sofiya@v.com>"
 license="MIT"
-homepage="https://github.com"
+homepage="https://github.com/sofijacom/nixie-clock"
 distfiles="https://github.com/sofijacom/nixie-clock/archive/refs/tags/v${version}.tar.gz"
-wrksrc="nixie-clock-v${version}"
 checksum=41ce7dc5adebe16e30e6e7244483c0f8a45d472ce16e3fb391ea3079eb4dd14d
 
 do_build() {
@@ -35,4 +36,9 @@ Terminal=false
 Type=Application
 Categories=Utility;Clock;GTK;
 EOF
+}
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
 }
