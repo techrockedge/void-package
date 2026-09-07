@@ -73,6 +73,7 @@ sudo xbps-install -S
 | _perl-Sys-Mmap_                       | https://metacpan.org/pod/perl::Sys::Mmap          | ✔️ |
 | _Pup-volume-monitor_                  | https://github.com/01micko/pup-volume-monitor     | 🔐 |
 | _Osmo + dependency (libgringotts)_    | https://sourceforge.net/projects/osmo-pim/files/  | 🔐 |
+| _rox-filer2 (file manager)_           | https://github.com/josejp2424/ROX-Filer2          | ✔️ |
 | _SeaMonkey ( Web-browser )_           | https://www.seamonkey-project.org/                | ✔️ |
 | _SmartGit_                            | https://www.smartgit.dev/                         | ✔️ |
 | _Waterfox-browser_                    | https://www.waterfox.net/                         | ✔️ |
