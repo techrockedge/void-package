@@ -1,8 +1,10 @@
 # Template file for 'smartgit'
+
 pkgname=smartgit
 version=26.1.057
 revision=1
-_tarver=26_1_038
+_tarver=$(echo "${version//./_}" | cut -d_ -f -4)
+# _tarver=xx_x_xxx
 archs="x86_64"
 depends="desktop-file-utils gtk+3 which git git-lfs"
 short_desc="Graphical Git client"
