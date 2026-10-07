@@ -12,8 +12,8 @@
 [![x85_64-glibc](https://img.shields.io/badge/x86__64-glibc-478061?style=badge&colorA=363a4f)](#)
 
 [![Build](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/build-workflows.yml?style=badge&label=BUILD&logo=githubactions&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
-[![Build](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update.yml?style=badge&label=UPDATE-TEMPLATE&logo=githubactions&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
-[![Updates](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update.yml?style=badge&label=AUTO-UPDATE&logo=github&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update-template.yml?style=badge&label=UPDATE-TEMPLATE&logo=githubactions&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
+[![Updates](https://img.shields.io/github/actions/workflow/status/techrockedge/void-package/update-template.yml?style=badge&label=AUTO-UPDATE&logo=github&logoColor=white&colorA=363a4f)](https://github.com/techrockedge/void-package/actions)
 
 [![GitHub](https://img.shields.io/github/license/techrockedge/void-package?style=badge&label=License&colorA=363a4f&colorB=purple&logo=gitbook)](https://github.com/techrockedge/void-package/blob/main/LICENSE)
 [![GitHub contributors](https://img.shields.io/github/contributors/techrockedge/void-package?style=badge&colorA=363a4f&colorB=purple&logo=github&label=Contributors)](https://github.com/techrockedge/void-package/graphs/contributors?from=)
