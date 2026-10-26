@@ -1,0 +1,18 @@
+# Template file for 'conky-manager3'
+pkgname=conky-manager3
+version=3.3.1
+revision=1
+build_style=meson
+hostmakedepends="meson ninja vala gettext pkg-config"
+makedepends="gtk+3-devel libgee-devel json-glib-devel"
+depends="conky p7zip ImageMagick rsync curl psmisc"
+short_desc="GUI for managing Conky widgets (fork from Conky Manager 2)"
+maintainer="Sofiya <sofija.p2018@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com"
+distfiles="https://github.com/thuutien/Conky-Manager-3/archive/refs/tags/v${version}.tar.gz"
+checksum=dbdd18b07a22e3b6ed9e3f8f06ee000ee4a2510ddde8212c3bce17c85feaca86
+
+post_install() {
+	vlicense COPYING
+}
